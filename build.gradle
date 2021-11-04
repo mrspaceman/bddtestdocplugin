@@ -1,0 +1,42 @@
+plugins {
+    id 'org.jetbrains.intellij' version '1.2.1'
+    id 'java'
+}
+
+group 'uk.co.droidinactu'
+version '0.0.2-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version = '2021.2.3'
+}
+
+patchPluginXml {
+    changeNotes = """
+      Initial Release.<br>
+      <em>Generates Test Documentation from the <i>Tools</i> Menu</em>"""
+}
+
+publishPlugin {
+    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+    channels = ['canary', 'beta']
+}
+
+test {
+    useJUnitPlatform()
+}

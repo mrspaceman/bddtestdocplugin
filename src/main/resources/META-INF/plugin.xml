@@ -1,0 +1,49 @@
+<idea-plugin>
+    <id>uk.co.droidinactu.ArcTestDocPlugin</id>
+    <name>BDD Test Dox</name>
+    <vendor email="andyaspellclark@gmail.com" url="http://www.github.com">DroidInActu</vendor>
+
+    <description><![CDATA[
+    ArcTestDox creates simple documentation from the method names in JUnit test cases.<br/>
+For Example, a test class (`FooTests.java`):<br/>
+<code>
+public class FooTests {
+    public void testIsASingleton() {
+    }
+
+    public void testAReallyLongNameIsAGoodThing() {
+    }
+
+    public void shouldTestSomethingUseful() {
+    }
+}
+</code>
+
+would generate the following :<br/>
+<code>
+# Tests Found:
+
+##  FooTests
+   * is a singleton
+   * a really long name is a good thing
+   * test something useful
+</code>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="uk.co.droidinactu.bddtestdox.PopupDialogAction"
+                class="uk.co.droidinactu.bddtestdox.PopupDialogAction" text="Generate Test Dox"
+                description="Pop Dialog Example Action">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
