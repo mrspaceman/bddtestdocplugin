@@ -1,33 +1,29 @@
 <idea-plugin>
     <id>uk.co.droidinactu.ArcTestDocPlugin</id>
     <name>BDD Test Dox</name>
-    <vendor email="andyaspellclark@gmail.com" url="http://www.github.com">DroidInActu</vendor>
+    <vendor email="andyaspellclark@gmail.com" url="https://github.com/mrspaceman/bddtestdocplugin">DroidInActu</vendor>
 
     <description><![CDATA[
-    ArcTestDox creates simple documentation from the method names in JUnit test cases.<br/>
-For Example, a test class (`FooTests.java`):<br/>
-<code>
-public class FooTests {
-    public void testIsASingleton() {
-    }
-
-    public void testAReallyLongNameIsAGoodThing() {
-    }
-
-    public void shouldTestSomethingUseful() {
-    }
-}
-</code>
+    <p>ArcTestDox creates simple documentation from the method names in JUnit test cases.</p>
+<p>For Example, a test class (`FooTests.java`):</p>
+<code>public class FooTests {</code></br>
+<code>    public void testIsASingleton() {</code></br>
+<code>    }</code></br>
+<code></code></br>
+<code>    public void testAReallyLongNameIsAGoodThing() {</code></br>
+<code>    }</code></br>
+<code></code></br>
+<code>    public void shouldTestSomethingUseful() {</code></br>
+<code>    }</code></br>
+<code>}</code></br>
 
 would generate the following :<br/>
-<code>
-# Tests Found:
-
-##  FooTests
-   * is a singleton
-   * a really long name is a good thing
-   * test something useful
-</code>
+<code># Tests Found:</code></br>
+</code></br>
+<code>##  FooTests</code></br>
+<code>   * is a singleton</code></br>
+<code>   * a really long name is a good thing</code></br>
+<code>   * test something useful</code></br>
     ]]></description>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
