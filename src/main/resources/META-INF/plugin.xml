@@ -44,7 +44,7 @@ would generate the following output:<br/>
         <!-- Add your actions here -->
         <action id="uk.co.droidinactu.bddtestdox.PopupDialogAction"
                 class="uk.co.droidinactu.bddtestdox.PopupDialogAction" text="Generate Test Dox"
-                description="Pop Dialog Example Action">
+                description="Generate Test Dox">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
     </actions>

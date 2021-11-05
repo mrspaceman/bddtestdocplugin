@@ -31,7 +31,7 @@ public class PopupDialogAction extends AnAction {
 
     // Using the event, create and show a dialog
     @Nullable Project currentProject = event.getProject();
-    StringBuilder dlgMsg = new StringBuilder(event.getPresentation().getText() + " Selected!");
+    StringBuilder dlgMsg = new StringBuilder();
     String dlgTitle = event.getPresentation().getDescription();
     // If an element is selected in the editor, add info about it.
     Navigatable nav = event.getData(CommonDataKeys.NAVIGATABLE);
@@ -52,7 +52,12 @@ public class PopupDialogAction extends AnAction {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    dlgMsg.append(String.format("Test documentation written to file : %s", myState.outputFilename));
+    dlgMsg.append(
+        String.format(
+            "Test documentation written to file : %s",
+            (myState.prependProjectName ? currentProject.getName() + "_" : "")
+                + myState.outputFilename
+                + ".md"));
 
     Messages.showMessageDialog(
         currentProject, dlgMsg.toString(), dlgTitle, Messages.getInformationIcon());
