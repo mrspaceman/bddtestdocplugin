@@ -26,42 +26,10 @@ intellij {
     version = '2021.2.3'
 }
 
-patchPluginXml {
-    changeNotes = """
-<h3>[1.0.0-SNAPSHOT]</h3>
-<h4>Added</h4>
-<ul>
-    <li>Settings for output filename.</li>
-</ul>
-<h4>Updated</h4>
-<ul>
-</ul>
-<br/>
-<h3>[0.0.3]</h3>
-<h4>Added</h4>
-<ul>
-</ul>
-<h4>Updated</h4>
-<ul>
-    <li>Updated changelog.</li>
-</ul>
-<br/>
-<h3>[0.0.2]</h3>
-<h4>Added</h4>
-<ul>
-</ul>
-<h4>Updated</h4>
-<ul>
-    <li>Updated documentation.</li>
-</ul>
-<br/>
-<h3>[0.0.1] Initial Release</h3>
-<h4>Added</h4>
-<ul>
-    <li>Generates Test Documentation from the Tools Menu.</li>
-</ul>
-"""
-}
+//patchPluginXml {
+//    changeNotes = """
+//"""
+//}
 
 publishPlugin {
     token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
