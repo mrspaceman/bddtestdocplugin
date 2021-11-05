@@ -4,7 +4,8 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.pom.Navigatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -59,7 +60,10 @@ public class PopupDialogAction extends AnAction {
                 + myState.outputFilename
                 + ".md"));
 
-    Messages.showMessageDialog(
-        currentProject, dlgMsg.toString(), dlgTitle, Messages.getInformationIcon());
+    VirtualFile dir = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(new File(rootPath));
+    dir.refresh(true, false);
+
+    //    Messages.showMessageDialog(
+    //        currentProject, dlgMsg.toString(), dlgTitle, Messages.getInformationIcon());
   }
 }
