@@ -34,7 +34,7 @@ would generate the following :
 
 To run ArcTestDox:
 
-1. Download `bddtestdox-0.0.3-SNAPSHOT.jar`
-2. Run `java -jar bddtestdox-0.0.3-SNAPSHOT.jar <test-directory> <output filename>`
+1. Install plugin from [Intellij Marketplace](https://plugins.jetbrains.com/plugin/17953-bdd-test-dox/versions/stable)
+2. Select `Tools` -> `Generate Test Dox`
 
 

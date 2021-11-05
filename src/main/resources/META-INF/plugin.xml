@@ -15,6 +15,7 @@ would generate the following output:<br/>
     <change-notes><![CDATA[
 <p>[1.0.0-SNAPSHOT]</p>
 <ul>
+    <li>Initiate file refresh</li>
     <li>Tidied up documentation.</li>
     <li>Added settings for output filename.</li>
 </ul>
