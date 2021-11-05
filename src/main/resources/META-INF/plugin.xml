@@ -42,4 +42,13 @@ would generate the following :<br/>
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
     </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable parentId="tools" instance="uk.co.droidinactu.bddtestdox.ProjectSettingsConfigurable"
+                             id="org.company.ProjectSettingsConfigurable"
+                             displayName="BDD Test Documentation Generator Settings"
+                             nonDefaultProject="true"/>
+        <applicationService serviceImplementation="uk.co.droidinactu.bddtestdox.ProjectSettingsState"/>
+    </extensions>
+
 </idea-plugin>
