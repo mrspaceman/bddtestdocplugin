@@ -4,7 +4,7 @@
     <vendor email="andyaspellclark@gmail.com" url="https://github.com/mrspaceman/bddtestdocplugin">DroidInActu</vendor>
 
     <description><![CDATA[
-    <p>ArcTestDox creates simple documentation from the method names in JUnit test cases.</p>
+    <p>BddTestDox creates simple documentation from the method names in JUnit test cases.</p>
     <b><a href="https://github.com/mrspaceman/bddtestdocplugin">Github</a></b>
 <p>For Example, a test class <em>>FooTests.java</em>:</p>
 <image src="https://github.com/mrspaceman/bddtestdocplugin/raw/2cbc244009cdf12a70ec44c5ca458e15a3e60353/images/footestclass.png"/>
@@ -45,7 +45,7 @@ would generate the following output:<br/>
         <!-- Add your actions here -->
         <action id="uk.co.droidinactu.bddtestdox.PopupDialogAction"
                 class="uk.co.droidinactu.bddtestdox.PopupDialogAction" text="Generate Test Dox"
-                description="Generate Test Dox">
+                description="Generate test documentation">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
     </actions>

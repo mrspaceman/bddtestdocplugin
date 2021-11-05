@@ -2,11 +2,9 @@ package uk.co.droidinactu.bddtestdox;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.pom.Navigatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +13,7 @@ import java.io.IOException;
 
 public class PopupDialogAction extends AnAction {
 
-  BddTestDoxService bddTestDoxService = new BddTestDoxService();
+  private final BddTestDoxService bddTestDoxService = new BddTestDoxService();
 
   @Override
   public void update(AnActionEvent e) {
@@ -32,13 +30,6 @@ public class PopupDialogAction extends AnAction {
 
     // Using the event, create and show a dialog
     @Nullable Project currentProject = event.getProject();
-    StringBuilder dlgMsg = new StringBuilder();
-    String dlgTitle = event.getPresentation().getDescription();
-    // If an element is selected in the editor, add info about it.
-    Navigatable nav = event.getData(CommonDataKeys.NAVIGATABLE);
-    if (nav != null) {
-      dlgMsg.append(String.format("\nClass: %s", nav.toString()));
-    }
 
     String rootPath = currentProject.getBasePath();
     String outputPath =
@@ -53,17 +44,9 @@ public class PopupDialogAction extends AnAction {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    dlgMsg.append(
-        String.format(
-            "Test documentation written to file : %s",
-            (myState.prependProjectName ? currentProject.getName() + "_" : "")
-                + myState.outputFilename
-                + ".md"));
-
     VirtualFile dir = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(new File(rootPath));
-    dir.refresh(true, false);
-
-    //    Messages.showMessageDialog(
-    //        currentProject, dlgMsg.toString(), dlgTitle, Messages.getInformationIcon());
+    if (dir != null) {
+      dir.refresh(true, false);
+    }
   }
 }

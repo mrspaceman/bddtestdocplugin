@@ -1,7 +1,6 @@
 package uk.co.droidinactu.bddtestdox;
 
 import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.util.NlsContexts;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.Nullable;
@@ -66,11 +65,9 @@ public class ProjectSettingsConfigurable implements Configurable {
   /**
    * Stores the settings from the Swing form to the configurable component. This method is called on
    * EDT upon user's request.
-   *
-   * @throws ConfigurationException if values cannot be applied
    */
   @Override
-  public void apply() throws ConfigurationException {
+  public void apply() {
     ProjectSettingsState settings = ProjectSettingsState.getInstance();
     settings.outputFilename = projectSettingsComponent.getOutputFilenameText();
     settings.prependProjectName = projectSettingsComponent.getPrependProjectFilename();

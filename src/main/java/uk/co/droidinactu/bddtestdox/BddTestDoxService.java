@@ -1,7 +1,6 @@
 package uk.co.droidinactu.bddtestdox;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
 import java.nio.file.*;
@@ -31,6 +30,8 @@ public class BddTestDoxService {
   /** test method may be marked as public */
   public static final String TEST_FUNCTION_PREFIX_PUBLIC = "public";
 
+  public static final String TEST_CLASS_PREFIX = "class ";
+
   /**
    * Finds unit test java class files.
    *
@@ -38,7 +39,7 @@ public class BddTestDoxService {
    * @return a list of java source file names that end with "test" or "tests"
    * @throws IOException if there is an error reading any of the unt test class files
    */
-  public Set<Path> findFiles(String rootPath) throws IOException {
+  private Set<Path> findFiles(String rootPath) throws IOException {
     log.trace("findFiles(\"{}\")", rootPath);
     Set<Path> fileList = new HashSet<>();
     Files.walkFileTree(
@@ -64,8 +65,8 @@ public class BddTestDoxService {
    * @param testNames the list of method names to format
    * @return the list of formatted names
    */
-  public List<String> formatTestNames(List<String> testNames) {
-    log.trace("formatTestNames({})", testNames.stream().collect(Collectors.joining(",")));
+  private List<String> formatTestNames(List<String> testNames) {
+    log.trace("formatTestNames({})", String.join(",", testNames));
     return testNames.parallelStream()
         .map(this::formatTestName)
         .sorted()
@@ -79,7 +80,7 @@ public class BddTestDoxService {
    * @param testName the full test function name
    * @return the formatted test name
    */
-  public String formatTestName(String testName) {
+  private String formatTestName(String testName) {
     log.trace("formatTestName(\"{}\")", testName);
     String tn2 = testName;
     if (testName.startsWith(TEST_PREFIX)) {
@@ -102,9 +103,10 @@ public class BddTestDoxService {
    * @return a list of test method names
    * @throws IOException if there is an error reading any of the unt test class files
    */
-  public List<String> readTestNames(Path fileName) throws IOException {
+  private Map<String, List<String>> readTestNames(Path fileName) throws IOException {
     log.trace("readTestNames(\"{}\")", fileName.toString());
     ArrayList<String> testNames = new ArrayList<>(1);
+    String classname = "<unknown>";
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName.toFile()))) {
       String prevLine = "";
@@ -112,7 +114,16 @@ public class BddTestDoxService {
 
       while ((currentLine = reader.readLine()) != null) {
         currentLine = currentLine.trim();
-        if (prevLine.equals(JUNIT_TEST_ANNOTATION)) {
+
+        if (currentLine.contains(TEST_CLASS_PREFIX)) {
+          classname =
+              currentLine
+                  .substring(currentLine.indexOf(TEST_CLASS_PREFIX) + TEST_CLASS_PREFIX.length())
+                  .trim();
+          if (classname.endsWith("{")) {
+            classname = classname.substring(0, classname.length() - 1).trim();
+          }
+        } else if (prevLine.equals(JUNIT_TEST_ANNOTATION)) {
           log.trace("Found test annotation [\n\t{}\n\t{}\n]", prevLine, currentLine);
 
           if (currentLine.startsWith(TEST_FUNCTION_PREFIX_VOID)
@@ -134,7 +145,9 @@ public class BddTestDoxService {
         prevLine = currentLine;
       }
     }
-    return testNames;
+    Map<String, List<String>> retObj = new HashMap<>();
+    retObj.put(classname, testNames);
+    return retObj;
   }
 
   /**
@@ -145,15 +158,13 @@ public class BddTestDoxService {
    * @return a map of classname to list of test names
    * @throws IOException if there is an error reading any of the * unt test class files
    */
-  public Map<String, List<String>> getTestNames(String testRootDir) throws IOException {
+  private Map<String, List<String>> getTestNames(String testRootDir) throws IOException {
     Map<String, List<String>> classTests = new HashMap<>();
     findFiles(testRootDir)
         .forEach(
             testFile -> {
               try {
-                classTests.put(
-                    FilenameUtils.removeExtension(testFile.toFile().getName()),
-                    readTestNames(testFile));
+                classTests.putAll(readTestNames(testFile));
               } catch (IOException e) {
                 e.printStackTrace();
               }
