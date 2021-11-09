@@ -6,7 +6,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaSource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +15,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class PopupDialogAction extends AnAction {
 
@@ -89,29 +88,21 @@ public class PopupDialogAction extends AnAction {
       NameFormatter nameFormatter,
       JavaSource src,
       UnitTestDetector unitTestDetector) {
-    src.getClasses()
-        .forEach(
-            classObj -> {
-              if (unitTestDetector.isTestClass(classObj.getName())) {
-                String prettyName = nameFormatter.prettifyTestClass(classObj.getName());
-                gen.startClass(prettyName);
-                processMethods(gen, nameFormatter, classObj.getMethods(), unitTestDetector);
-                gen.endClass(prettyName);
-              }
-            });
+    src.getClasses().stream()
+        .filter(cls -> unitTestDetector.isTestClass(cls.getName()))
+        .forEach(classObj -> processTestClass(classObj, gen, nameFormatter, unitTestDetector));
   }
 
-  private void processMethods(
+  private void processTestClass(
+      JavaClass classObj,
       DocumentGenerator gen,
       NameFormatter nameFormatter,
-      List<JavaMethod> methods,
       UnitTestDetector unitTestDetector) {
-    for (int k = 0; k < methods.size(); k++) {
-
-      String name = methods.get(k).getName();
-      if (unitTestDetector.isTestMethod(name)) {
-        gen.onTest(nameFormatter.prettifyTestMethod(name));
-      }
-    }
+    String prettyName = nameFormatter.prettifyTestClass(classObj.getName());
+    gen.startClass(prettyName);
+    classObj.getMethods().stream()
+        .filter(mthdName -> unitTestDetector.isTestMethod(mthdName.getName()))
+        .forEach(mthdName -> gen.onTest(nameFormatter.prettifyTestMethod(mthdName.getName())));
+    gen.endClass(prettyName);
   }
 }
