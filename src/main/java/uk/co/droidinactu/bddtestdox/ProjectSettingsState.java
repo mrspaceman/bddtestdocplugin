@@ -20,6 +20,8 @@ public class ProjectSettingsState implements PersistentStateComponent<ProjectSet
 
   public String outputFilename = "output_bddtestdox";
   public boolean prependProjectName = true;
+  public boolean outputToHtml = false;
+  public boolean outputToMarkdown = false;
 
   public static ProjectSettingsState getInstance() {
     return ApplicationManager.getApplication().getService(ProjectSettingsState.class);

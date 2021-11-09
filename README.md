@@ -1,6 +1,6 @@
 # BDD Test Doc Intellij Plugin
 
-[Introducing BDD](https://dannorth.net/introducing-bdd/?source=:em:nw:mt::::RC_WWMK200429P00043C0038:NSL400181916)
+[Introducing BDD](https://dannorth.net/introducing-bdd/)
 
 Inspired by [AgileDox/TestDox](http://agiledox.sourceforge.net/).
 
@@ -34,7 +34,24 @@ would generate the following :
 
 To run ArcTestDox:
 
-1. Install plugin from [Intellij Marketplace](https://plugins.jetbrains.com/plugin/17953-bdd-test-dox/versions/stable)
+1. Install plugin from [Intellij Marketplace](https://plugins.jetbrains.com/plugin/17953-bdd-test-dox)
 2. Select `Tools` -> `Generate Test Dox`
 
+[comment]: <> (<iframe frameborder="none" width="384px" height="319px" src="https://plugins.jetbrains.com/embeddable/card/17953"></iframe>)
+
+[comment]: <> (<br/>)
+
+[comment]: <> (<iframe frameborder="none" width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/17953"></iframe>)
+
+[comment]: <> (<br/>)
+
+[comment]: <> (<script src="https://plugins.jetbrains.com/assets/scripts/mp-widget.js"></script>)
+
+[comment]: <> (<script>)
+
+[comment]: <> (  // Please, replace #yourelement with a real element id on your webpage)
+
+[comment]: <> (  MarketplaceWidget.setupMarketplaceWidget&#40;'card', 17953, "#yourelement"&#41;;)
+
+[comment]: <> (</script>)
 

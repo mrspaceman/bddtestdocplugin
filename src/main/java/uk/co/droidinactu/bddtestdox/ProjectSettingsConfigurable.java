@@ -59,6 +59,8 @@ public class ProjectSettingsConfigurable implements Configurable {
     boolean modified =
         !projectSettingsComponent.getOutputFilenameText().equals(settings.outputFilename);
     modified |= projectSettingsComponent.getPrependProjectFilename() != settings.prependProjectName;
+    modified |= projectSettingsComponent.getOutputToHtml() != settings.outputToHtml;
+    modified |= projectSettingsComponent.getOutputToMarkdown() != settings.outputToMarkdown;
     return modified;
   }
 
@@ -71,6 +73,8 @@ public class ProjectSettingsConfigurable implements Configurable {
     ProjectSettingsState settings = ProjectSettingsState.getInstance();
     settings.outputFilename = projectSettingsComponent.getOutputFilenameText();
     settings.prependProjectName = projectSettingsComponent.getPrependProjectFilename();
+    settings.outputToHtml = projectSettingsComponent.getOutputToHtml();
+    settings.outputToMarkdown = projectSettingsComponent.getOutputToMarkdown();
   }
 
   @Override
@@ -78,6 +82,8 @@ public class ProjectSettingsConfigurable implements Configurable {
     ProjectSettingsState settings = ProjectSettingsState.getInstance();
     projectSettingsComponent.setOutputFilenameText(settings.outputFilename);
     projectSettingsComponent.setPrependProjectFilename(settings.prependProjectName);
+    projectSettingsComponent.setOutputToHtml(settings.outputToHtml);
+    projectSettingsComponent.setOutputToMarkdown(settings.outputToMarkdown);
   }
 
   @Override

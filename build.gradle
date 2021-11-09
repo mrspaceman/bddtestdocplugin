@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'uk.co.droidinactu'
-version '1.1.0-SNAPSHOT'
+version '2.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -12,7 +12,10 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
-    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation 'commons-io:commons-io:2.11.0'
+
+    // https://mvnrepository.com/artifact/com.thoughtworks.qdox/qdox
+    implementation 'com.thoughtworks.qdox:qdox:2.0.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -25,11 +28,6 @@ dependencies {
 intellij {
     version = '2021.2.3'
 }
-
-//patchPluginXml {
-//    changeNotes = """
-//"""
-//}
 
 publishPlugin {
     token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")

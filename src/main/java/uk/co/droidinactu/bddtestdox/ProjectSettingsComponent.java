@@ -15,6 +15,8 @@ public class ProjectSettingsComponent {
   private final JBTextField myOutputFilenameText = new JBTextField();
   private final JBCheckBox prependProjectFilename =
       new JBCheckBox("Prepend project name to file? ");
+  private final JBCheckBox outputToHtml = new JBCheckBox("Output HTML format? ");
+  private final JBCheckBox outputToMarkdown = new JBCheckBox("Output Markdown format? ");
 
   public ProjectSettingsComponent() {
     myMainPanel =
@@ -22,6 +24,8 @@ public class ProjectSettingsComponent {
             .addLabeledComponent(
                 new JBLabel("Enter output filename: "), myOutputFilenameText, 1, false)
             .addComponent(prependProjectFilename, 1)
+            .addComponent(outputToHtml, 1)
+            .addComponent(outputToMarkdown, 1)
             .addComponentFillVertically(new JPanel(), 0)
             .getPanel();
   }
@@ -49,5 +53,21 @@ public class ProjectSettingsComponent {
 
   public void setPrependProjectFilename(boolean newStatus) {
     prependProjectFilename.setSelected(newStatus);
+  }
+
+  public boolean getOutputToHtml() {
+    return outputToHtml.isSelected();
+  }
+
+  public void setOutputToHtml(boolean newStatus) {
+    outputToHtml.setSelected(newStatus);
+  }
+
+  public boolean getOutputToMarkdown() {
+    return outputToMarkdown.isSelected();
+  }
+
+  public void setOutputToMarkdown(boolean newStatus) {
+    outputToMarkdown.setSelected(newStatus);
   }
 }
