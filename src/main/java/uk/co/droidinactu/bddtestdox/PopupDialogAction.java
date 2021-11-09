@@ -76,26 +76,26 @@ public class PopupDialogAction extends AnAction {
 
   private void generateFile(
       DocumentGenerator gen,
-      NameFormatter prettifier,
+      NameFormatter nameFormatter,
       VirtualFile testSrcDir,
       UnitTestDetector unitTestDetector) {
     JavaProjectBuilder builder = new JavaProjectBuilder();
     builder.addSourceTree(new File(testSrcDir.getPath()));
-    builder.getSources().forEach(src -> processClasses(gen, prettifier, src, unitTestDetector));
+    builder.getSources().forEach(src -> processClasses(gen, nameFormatter, src, unitTestDetector));
   }
 
   private void processClasses(
       DocumentGenerator gen,
-      NameFormatter prettifier,
+      NameFormatter nameFormatter,
       JavaSource src,
       UnitTestDetector unitTestDetector) {
     src.getClasses()
         .forEach(
             classObj -> {
               if (unitTestDetector.isTestClass(classObj.getName())) {
-                String prettyName = prettifier.prettifyTestClass(classObj.getName());
+                String prettyName = nameFormatter.prettifyTestClass(classObj.getName());
                 gen.startClass(prettyName);
-                processMethods(gen, prettifier, classObj.getMethods(), unitTestDetector);
+                processMethods(gen, nameFormatter, classObj.getMethods(), unitTestDetector);
                 gen.endClass(prettyName);
               }
             });
@@ -103,14 +103,14 @@ public class PopupDialogAction extends AnAction {
 
   private void processMethods(
       DocumentGenerator gen,
-      NameFormatter prettifier,
+      NameFormatter nameFormatter,
       List<JavaMethod> methods,
       UnitTestDetector unitTestDetector) {
     for (int k = 0; k < methods.size(); k++) {
 
       String name = methods.get(k).getName();
       if (unitTestDetector.isTestMethod(name)) {
-        gen.onTest(prettifier.prettifyTestMethod(name));
+        gen.onTest(nameFormatter.prettifyTestMethod(name));
       }
     }
   }
