@@ -29,22 +29,32 @@ public class PopupDialogAction extends AnAction {
   @Override
   public void actionPerformed(@NotNull AnActionEvent event) {
     ProjectSettingsState myState = ProjectSettingsState.getInstance();
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
-    MultiplexingGenerator gen = new MultiplexingGenerator();
-    NameFormatter prettifier = new NameFormatter();
 
     // Using the event, create and show a dialog
     @Nullable Project currentProject = event.getProject();
 
     String rootPath = currentProject.getBasePath();
-    @Nullable VirtualFile srcRoot = LocalFileSystem.getInstance().findFileByPath(rootPath);
 
-    if (srcRoot == null) {
-      return;
+    VirtualFile srcRoot = LocalFileSystem.getInstance().findFileByPath(rootPath);
+    if (srcRoot != null) {
+      processTestClassFiles(myState, currentProject, srcRoot);
+      VirtualFile dir =
+          LocalFileSystem.getInstance()
+              .refreshAndFindFileByIoFile(new File(currentProject.getBasePath()));
+      if (dir != null) {
+        dir.refresh(true, false);
+      }
     }
+  }
+
+  public void processTestClassFiles(
+      ProjectSettingsState myState, Project currentProject, VirtualFile srcRoot) {
+    UnitTestDetector unitTestDetector = new UnitTestDetector();
+    MultiplexingGenerator gen = new MultiplexingGenerator();
+    NameFormatter prettifier = new NameFormatter();
 
     String outputPath =
-        rootPath
+        currentProject.getBasePath()
             + File.separator
             + (myState.prependProjectName ? currentProject.getName() + "_" : "")
             + myState.outputFilename;
@@ -53,6 +63,7 @@ public class PopupDialogAction extends AnAction {
     if (myState.outputToHtml) {
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath + ".html"))) {
         gen.addGenerator(new HtmlDocumentGenerator(writer));
+        gen.startProject(currentProject.getName());
         generateFile(gen, prettifier, srcRoot, unitTestDetector);
       } catch (IOException e) {
         e.printStackTrace();
@@ -62,14 +73,11 @@ public class PopupDialogAction extends AnAction {
     if (myState.outputToMarkdown) {
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath + ".md"))) {
         gen.addGenerator(new MarkdownDocumentGenerator(writer));
+        gen.startProject(currentProject.getName());
         generateFile(gen, prettifier, srcRoot, unitTestDetector);
       } catch (IOException e) {
         e.printStackTrace();
       }
-    }
-    VirtualFile dir = LocalFileSystem.getInstance().refreshAndFindFileByIoFile(new File(rootPath));
-    if (dir != null) {
-      dir.refresh(true, false);
     }
   }
 

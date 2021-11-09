@@ -6,6 +6,13 @@ package uk.co.droidinactu.bddtestdox;
 public interface DocumentGenerator {
 
   /**
+   * used to output the name of the project into the generated document.
+   *
+   * @param name the name of the project
+   */
+  void startProject(String name);
+
+  /**
    * used to output the name of the class into the generated document.
    *
    * @param name the name of the class

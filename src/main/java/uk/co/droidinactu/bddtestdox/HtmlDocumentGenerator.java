@@ -17,6 +17,17 @@ public class HtmlDocumentGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
+  public void startProject(String name) {
+    try {
+      out.write("<h1>Project " + name + "</h1>\n\n");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public void startClass(String name) {
     try {
       out.write("<h2>" + name + "</h2>\n");
@@ -27,6 +38,7 @@ public class HtmlDocumentGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
   public void endClass(String name) {
     try {
       out.write("</ul>\n");
@@ -36,6 +48,7 @@ public class HtmlDocumentGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
   public void onTest(String name) {
     try {
       out.write("<li>" + name + "</li>\n");

@@ -40,16 +40,25 @@ public class MultiplexingGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
+  public void startProject(String name) {
+    generators.forEach(gen -> gen.startProject(name));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public void startClass(String name) {
     generators.forEach(gen -> gen.startClass(name));
   }
 
   /** {@inheritDoc} */
+  @Override
   public void onTest(String name) {
     generators.forEach(gen -> gen.onTest(name));
   }
 
   /** {@inheritDoc} */
+  @Override
   public void endClass(String name) {
     generators.forEach(gen -> gen.endClass(name));
   }

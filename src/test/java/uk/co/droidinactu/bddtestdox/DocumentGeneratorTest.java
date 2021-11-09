@@ -30,7 +30,6 @@ public class DocumentGeneratorTest extends TestCase {
 
   @Test
   public void testStartClassAndEndClassAreCalled() throws IOException {
-
     UnitTestDetector unitTestDetector = new UnitTestDetector();
     Path rootPath = writeTestToFile();
     String outputPath = rootPath.toString() + File.separator + "test-output-file";
@@ -71,7 +70,7 @@ public class DocumentGeneratorTest extends TestCase {
             });
   }
 
-  private Path writeTestToFile() throws IOException {
+  public Path writeTestToFile() throws IOException {
     File tmpFile = createFile();
     BufferedWriter writer = new BufferedWriter(new FileWriter(tmpFile));
     writer.write("public class FooTests {\n");
@@ -93,6 +92,16 @@ public class DocumentGeneratorTest extends TestCase {
   }
 
   private class Foo implements DocumentGenerator {
+    /**
+     * used to output the name of the project into the generated document.
+     *
+     * @param name the name of the project
+     */
+    @Override
+    public void startProject(String name) {
+      messages.add("startProject(" + name + ")");
+    }
+
     public void startClass(String name) {
       messages.add("startClass(" + name + ")");
     }

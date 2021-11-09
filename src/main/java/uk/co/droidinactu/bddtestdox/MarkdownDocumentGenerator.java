@@ -16,6 +16,17 @@ public class MarkdownDocumentGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
+  public void startProject(String name) {
+    try {
+      out.write("# Project " + name + "\n\n");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public void startClass(String name) {
     try {
       out.write("## " + name + "\n");
@@ -25,6 +36,7 @@ public class MarkdownDocumentGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
   public void endClass(String name) {
     try {
       out.write("\n");
@@ -34,6 +46,7 @@ public class MarkdownDocumentGenerator implements DocumentGenerator {
   }
 
   /** {@inheritDoc} */
+  @Override
   public void onTest(String name) {
     try {
       out.write("  * " + name + "\n");
