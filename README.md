@@ -29,7 +29,7 @@ Feature: the version can be retrieved
   Scenario: client makes call to GET /version
     When the client calls /version
     Then the client receives status code of 200
-    And the client receives server version {"name":"ELibrary Server","version": "0.0.1-SNAPSHOT"}
+    And the client receives server version {"name":"Foo Server","version": "0.0.1-SNAPSHOT"}
 ```
 
 would generate the following :
@@ -68,4 +68,3 @@ To run ArcTestDox:
 [comment]: <> (  MarketplaceWidget.setupMarketplaceWidget&#40;'card', 17953, "#yourelement"&#41;;)
 
 [comment]: <> (</script>)
-
