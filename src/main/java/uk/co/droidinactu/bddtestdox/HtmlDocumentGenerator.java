@@ -37,6 +37,16 @@ public class HtmlDocumentGenerator implements DocumentGenerator {
     }
   }
 
+  @Override
+  public void startFeature(String name) {
+    try {
+      out.write("<h2>" + name + "</h2>\n");
+      out.write("<ul>\n");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   /** {@inheritDoc} */
   @Override
   public void endClass(String name) {

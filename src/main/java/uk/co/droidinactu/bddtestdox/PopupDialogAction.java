@@ -5,9 +5,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.model.JavaClass;
-import com.thoughtworks.qdox.model.JavaSource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,9 +46,8 @@ public class PopupDialogAction extends AnAction {
 
   public void processTestClassFiles(
       ProjectSettingsState myState, Project currentProject, VirtualFile srcRoot) {
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
     MultiplexingGenerator gen = new MultiplexingGenerator();
-    NameFormatter prettifier = new NameFormatter();
+    FileProcessor fp = new FileProcessor();
 
     String outputPath =
         currentProject.getBasePath()
@@ -64,7 +60,7 @@ public class PopupDialogAction extends AnAction {
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath + ".html"))) {
         gen.addGenerator(new HtmlDocumentGenerator(writer));
         gen.startProject(currentProject.getName());
-        generateFile(gen, prettifier, srcRoot, unitTestDetector);
+        fp.generateFile(gen, srcRoot);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -74,43 +70,10 @@ public class PopupDialogAction extends AnAction {
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath + ".md"))) {
         gen.addGenerator(new MarkdownDocumentGenerator(writer));
         gen.startProject(currentProject.getName());
-        generateFile(gen, prettifier, srcRoot, unitTestDetector);
+        fp.generateFile(gen, srcRoot);
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
-  }
-
-  private void generateFile(
-      DocumentGenerator gen,
-      NameFormatter nameFormatter,
-      VirtualFile testSrcDir,
-      UnitTestDetector unitTestDetector) {
-    JavaProjectBuilder builder = new JavaProjectBuilder();
-    builder.addSourceTree(new File(testSrcDir.getPath()));
-    builder.getSources().forEach(src -> processClasses(gen, nameFormatter, src, unitTestDetector));
-  }
-
-  private void processClasses(
-      DocumentGenerator gen,
-      NameFormatter nameFormatter,
-      JavaSource src,
-      UnitTestDetector unitTestDetector) {
-    src.getClasses().stream()
-        .filter(cls -> unitTestDetector.isTestClass(cls.getName()))
-        .forEach(classObj -> processTestClass(classObj, gen, nameFormatter, unitTestDetector));
-  }
-
-  private void processTestClass(
-      JavaClass classObj,
-      DocumentGenerator gen,
-      NameFormatter nameFormatter,
-      UnitTestDetector unitTestDetector) {
-    String prettyName = nameFormatter.prettifyTestClass(classObj.getName());
-    gen.startClass(prettyName);
-    classObj.getMethods().stream()
-        .filter(mthdName -> unitTestDetector.isTestMethod(mthdName.getName()))
-        .forEach(mthdName -> gen.onTest(nameFormatter.prettifyTestMethod(mthdName.getName())));
-    gen.endClass(prettyName);
   }
 }

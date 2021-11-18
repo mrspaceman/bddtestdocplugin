@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'uk.co.droidinactu'
-version '2.1.0-SNAPSHOT'
+version '3.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -24,13 +24,48 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
-    testImplementation 'org.mockito:mockito-core:2.1.0'
+    testImplementation 'org.mockito:mockito-core:4.0.0'
 
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version = '2021.2.3'
+}
+
+patchPluginXml {
+    changeNotes = """
+<p>[3.0.0-SNAPSHOT]</p>
+<ul>
+    <li>Added support for extracting features and scenarios from Gherkin files.</li>
+</ul>
+<p>[2.1.0-SNAPSHOT]</p>
+<ul>
+    <li>Added project name into output file.</li>
+</ul>
+<p>[2.0.0-SNAPSHOT]</p>
+<ul>
+    <li>Refactored code to use classes from <a href="http://agiledox.sourceforge.net/">AgileDox/TestDox</a> project.</li>
+</ul>
+<p>[1.0.0-SNAPSHOT]</p>
+<ul>
+    <li>Initiate file refresh.</li>
+    <li>Tidied up documentation.</li>
+    <li>Added settings for output filename.</li>
+</ul>
+<p>[0.0.3]</p>
+<ul>
+    <li>Updated changelog.</li>
+</ul>
+<p>[0.0.2]</p>
+<ul>
+    <li>Updated documentation.</li>
+</ul>
+<p>[0.0.1]</p>
+<ul>
+    <li>Initial Release</li>
+    <li>Generates Test Documentation from the Tools Menu.</li>
+</ul>"""
 }
 
 publishPlugin {
@@ -40,4 +75,8 @@ publishPlugin {
 
 test {
     useJUnitPlatform()
+}
+
+runIde {
+    jvmArgs '-Xmx2G'
 }

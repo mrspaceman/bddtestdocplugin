@@ -54,4 +54,12 @@ public class NameFormatter {
     }
     return ftn.toString().trim();
   }
+
+  public String prettifyScenarioName(String scenarioName) {
+    return scenarioName.trim().substring("Scenario:".length()).trim();
+  }
+
+  public String prettifyFeatureName(String featureName) {
+    return featureName; // .trim().substring("Feature:".length()).trim();
+  }
 }

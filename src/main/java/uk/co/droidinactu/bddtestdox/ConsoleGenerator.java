@@ -22,6 +22,12 @@ public class ConsoleGenerator implements DocumentGenerator {
 
   /** {@inheritDoc} */
   @Override
+  public void startFeature(String name) {
+    System.out.println(name);
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public void onTest(String name) {
     System.out.println("    - " + name);
   }

@@ -53,6 +53,12 @@ public class MultiplexingGenerator implements DocumentGenerator {
 
   /** {@inheritDoc} */
   @Override
+  public void startFeature(String name) {
+    generators.forEach(gen -> gen.startFeature(name));
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public void onTest(String name) {
     generators.forEach(gen -> gen.onTest(name));
   }

@@ -32,4 +32,6 @@ public interface DocumentGenerator {
    * @param name the name of the class
    */
   void endClass(String name);
+
+  void startFeature(String name);
 }

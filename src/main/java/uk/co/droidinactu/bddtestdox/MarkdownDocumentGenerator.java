@@ -37,6 +37,16 @@ public class MarkdownDocumentGenerator implements DocumentGenerator {
 
   /** {@inheritDoc} */
   @Override
+  public void startFeature(String name) {
+    try {
+      out.write("## " + name + "\n");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public void endClass(String name) {
     try {
       out.write("\n");
