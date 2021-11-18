@@ -6,7 +6,7 @@ Inspired by [AgileDox/TestDox](http://agiledox.sourceforge.net/).
 
 BddTestDocPlugin creates simple documentation from the method names in JUnit test cases.
 
-For Example, a test class (`FooTests.java`):
+For Example, a test class (`FooTests.java`) in a project `Foo Project`:
 
 ```java
 public class FooTests {
@@ -21,15 +21,29 @@ public class FooTests {
 }
 ```
 
+with a Gherkin feature file:
+
+```gherkin
+Feature: the version can be retrieved
+
+  Scenario: client makes call to GET /version
+    When the client calls /version
+    Then the client receives status code of 200
+    And the client receives server version {"name":"ELibrary Server","version": "0.0.1-SNAPSHOT"}
+```
+
 would generate the following :
 
 ```
-# Tests Found:
+# Project Foo Project
 
 ##  FooTests
    * is a singleton
    * a really long name is a good thing
    * test something useful
+
+## Feature: the version can be retrieved
+  * client makes call to GET /version
 ```
 
 To run ArcTestDox:
