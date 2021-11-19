@@ -9,7 +9,7 @@ import java.io.IOException;
  * <p><a href="http://agiledox.sourceforge.net/">Inspired by Chris Stevenson's AgileDox project.</a>
  */
 public class MarkdownDocumentGenerator implements DocumentGenerator {
-  private BufferedWriter out;
+  private final BufferedWriter out;
 
   public MarkdownDocumentGenerator(BufferedWriter out) {
     this.out = out;

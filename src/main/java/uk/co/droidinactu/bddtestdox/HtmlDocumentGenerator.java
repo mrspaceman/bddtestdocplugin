@@ -10,7 +10,7 @@ import java.io.IOException;
  * project.</a>
  */
 public class HtmlDocumentGenerator implements DocumentGenerator {
-  private BufferedWriter out;
+  private final BufferedWriter out;
 
   public HtmlDocumentGenerator(BufferedWriter out) {
     this.out = out;

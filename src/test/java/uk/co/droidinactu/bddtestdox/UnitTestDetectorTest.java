@@ -4,8 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UnitTestDetectorTest {
 
@@ -17,31 +17,27 @@ class UnitTestDetectorTest {
 
   @Test
   public void shouldReturnTrueForTestClasses() {
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
-    assertTrue(unitTestDetector.isTestClass("class UnitTestDetectorTest"));
-    assertTrue(unitTestDetector.isTestClass("class BddTestDoxServiceTest"));
+    assertTrue(UnitTestDetector.isTestClass("class UnitTestDetectorTest"));
+    assertTrue(UnitTestDetector.isTestClass("class BddTestDoxServiceTest"));
   }
 
   @Test
   public void shouldReturnFalseForNonTestClasses() {
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
-    assertFalse(unitTestDetector.isTestMethod("setUp"));
-    assertFalse(unitTestDetector.isTestClass("class DocumentGenerator"));
-    assertFalse(unitTestDetector.isTestClass("class PopupDialogAction"));
+    assertFalse(UnitTestDetector.isTestMethod("setUp"));
+    assertFalse(UnitTestDetector.isTestClass("class DocumentGenerator"));
+    assertFalse(UnitTestDetector.isTestClass("class PopupDialogAction"));
   }
 
   @Test
   public void shouldReturnTrueForTestMethods() {
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
-    assertTrue(unitTestDetector.isTestMethod("shouldBeATest"));
-    assertTrue(unitTestDetector.isTestMethod("testIfIsATest"));
+    assertTrue(UnitTestDetector.isTestMethod("shouldBeATest"));
+    assertTrue(UnitTestDetector.isTestMethod("testIfIsATest"));
   }
 
   @Test
   public void shouldReturnFalseForNonTestMethods() {
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
-    assertFalse(unitTestDetector.isTestMethod("setUp"));
-    assertFalse(unitTestDetector.isTestMethod("tearDown"));
-    assertFalse(unitTestDetector.isTestMethod("fooIsNotATest"));
+    assertFalse(UnitTestDetector.isTestMethod("setUp"));
+    assertFalse(UnitTestDetector.isTestMethod("tearDown"));
+    assertFalse(UnitTestDetector.isTestMethod("fooIsNotATest"));
   }
 }

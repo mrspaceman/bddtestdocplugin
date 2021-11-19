@@ -20,10 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PopupDialogActionTest {
 
-  private DocumentGeneratorTest documentGeneratorTest = new DocumentGeneratorTest();
-  private PopupDialogAction popupDialogAction;
+  private final DocumentGeneratorTest documentGeneratorTest = new DocumentGeneratorTest();
   private FileProcessor fileProcessor;
-  private Path rootPath = Path.of("./");
   private ProjectSettingsState myState;
 
   @Mock private Project currentProject;
@@ -39,7 +37,7 @@ class PopupDialogActionTest {
     myState.outputToHtml = true;
     myState.prependProjectName = true;
     myState.outputFilename = "TestDocCreation";
-    popupDialogAction = new PopupDialogAction();
+    PopupDialogAction popupDialogAction = new PopupDialogAction();
     fileProcessor = new FileProcessor();
 
     Mockito.when(currentProject.getName()).thenReturn("TestApp");
@@ -50,7 +48,7 @@ class PopupDialogActionTest {
 
   @Test
   void processTestClassFiles() throws IOException {
-    rootPath = documentGeneratorTest.writeTestToFile();
+    Path rootPath = documentGeneratorTest.writeTestToFile();
 
     Mockito.when(currentProject.getBasePath()).thenReturn("./");
     Mockito.when(srcRoot.getPath()).thenReturn(rootPath.getParent().toString());

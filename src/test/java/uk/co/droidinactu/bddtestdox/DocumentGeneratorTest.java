@@ -16,17 +16,12 @@ import java.util.List;
 /**
  * <a href="http://agiledox.sourceforge.net/">Adapted from Chris Stevenson's AgileDox project.</a>
  */
-
-/**
- * Created by IntelliJ IDEA. User: skizz Date: May 9, 2003 Time: 3:38:22 PM To change this template
- * use Options | File Templates.
- */
 public class DocumentGeneratorTest extends TestCase {
 
   private static final String testFilePostfix = "tests.java";
   private static final String testFilePrefix = "junit";
 
-  List messages = new ArrayList();
+  List<String> messages = new ArrayList<>();
 
   @Test
   public void testStartClassAndEndClassAreCalled() throws IOException {

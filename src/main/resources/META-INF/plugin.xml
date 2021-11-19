@@ -3,7 +3,7 @@
     <name>BDD Test Dox</name>
     <vendor email="andyaspellclark@gmail.com" url="https://github.com/mrspaceman/bddtestdocplugin">DroidInActu</vendor>
     <idea-version since-build="203"/>
-    <product-descriptor code="PDBBTESTDOX" release-date="20211120" release-version="20201" optional="true"/>
+    <!--    <product-descriptor code="PDBBTESTDOX" release-date="20211120" release-version="20201" optional="true"/>-->
 
     <description><![CDATA[
     <p>BddTestDox creates simple documentation from the method names in JUnit test cases.</p>
