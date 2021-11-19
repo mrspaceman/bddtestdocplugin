@@ -2,12 +2,15 @@
     <id>uk.co.droidinactu.ArcTestDocPlugin</id>
     <name>BDD Test Dox</name>
     <vendor email="andyaspellclark@gmail.com" url="https://github.com/mrspaceman/bddtestdocplugin">DroidInActu</vendor>
+    <idea-version since-build="203"/>
+    <product-descriptor code="PDBBTESTDOX" release-date="20211120" release-version="20201" optional="true"/>
 
     <description><![CDATA[
     <p>BddTestDox creates simple documentation from the method names in JUnit test cases.</p>
     <b><a href="https://github.com/mrspaceman/bddtestdocplugin">Github</a></b>
 <p>For Example, a test class <em>FooTests.java</em>:</p>
 <image src="https://github.com/mrspaceman/bddtestdocplugin/raw/2cbc244009cdf12a70ec44c5ca458e15a3e60353/images/footestclass.png"/>
+<br/>
 would generate the following output:<br/>
 <image src="https://github.com/mrspaceman/bddtestdocplugin/raw/2cbc244009cdf12a70ec44c5ca458e15a3e60353/images/bddtestdox_output.png"/>
     ]]></description>

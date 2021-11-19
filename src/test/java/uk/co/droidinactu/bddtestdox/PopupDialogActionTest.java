@@ -22,6 +22,7 @@ class PopupDialogActionTest {
 
   private DocumentGeneratorTest documentGeneratorTest = new DocumentGeneratorTest();
   private PopupDialogAction popupDialogAction;
+  private FileProcessor fileProcessor;
   private Path rootPath = Path.of("./");
   private ProjectSettingsState myState;
 
@@ -39,6 +40,7 @@ class PopupDialogActionTest {
     myState.prependProjectName = true;
     myState.outputFilename = "TestDocCreation";
     popupDialogAction = new PopupDialogAction();
+    fileProcessor = new FileProcessor();
 
     Mockito.when(currentProject.getName()).thenReturn("TestApp");
   }
@@ -52,7 +54,7 @@ class PopupDialogActionTest {
 
     Mockito.when(currentProject.getBasePath()).thenReturn("./");
     Mockito.when(srcRoot.getPath()).thenReturn(rootPath.getParent().toString());
-    popupDialogAction.processTestClassFiles(myState, currentProject, srcRoot);
+    fileProcessor.processTestClassFiles(myState, currentProject, srcRoot);
 
     // open file
     String outputFilename = currentProject.getName() + "_" + myState.outputFilename + ".md";
@@ -61,7 +63,7 @@ class PopupDialogActionTest {
     try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
       String currentLine = reader.readLine();
       assertNotNull(currentLine);
-      assertEquals("# Tests Found:", currentLine);
+      assertEquals("# Project TestApp", currentLine);
 
       currentLine = reader.readLine();
       assertNotNull(currentLine);
@@ -73,11 +75,11 @@ class PopupDialogActionTest {
 
       currentLine = reader.readLine();
       assertNotNull(currentLine);
-      assertEquals("    * finds test method names", currentLine);
+      assertEquals("  * finds test method names", currentLine);
 
       currentLine = reader.readLine();
       assertNotNull(currentLine);
-      assertEquals("    * write test", currentLine);
+      assertEquals("  * write test", currentLine);
     }
     Files.delete(rootPath);
     Files.delete(Path.of(outputFilename));

@@ -110,6 +110,11 @@ public class DocumentGeneratorTest extends TestCase {
       messages.add("endClass(" + name + ")");
     }
 
+    @Override
+    public void startFeature(String name) {
+      messages.add("startFeature(" + name + ")");
+    }
+
     public void onTest(String name) {
       messages.add("onTest(" + name + ")");
     }
