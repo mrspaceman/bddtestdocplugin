@@ -94,7 +94,7 @@ public class CheckLicense {
   private static final long MINUTE = 60 * SECOND;
   private static final long HOUR = 60 * MINUTE;
   private static final long TIMESTAMP_VALIDITY_PERIOD_MS =
-      1 * HOUR; // configure period that suits your needs better
+      HOUR; // configure period that suits your needs better
 
   public static boolean isLicensed() {
     final LicensingFacade facade = LicensingFacade.getInstance();

@@ -34,7 +34,7 @@ public class PopupDialogAction extends AnAction {
         LocalFileSystem.getInstance().findFileByPath(rootPath == null ? "./" : rootPath);
     if (srcRoot != null) {
       ProjectSettingsState myState = ProjectSettingsState.getInstance();
-      final FileProcessor fp = new FileProcessor();
+      var fp = new FileProcessor();
       fp.processTestClassFiles(myState, currentProject, srcRoot);
       VirtualFile dir =
           LocalFileSystem.getInstance()

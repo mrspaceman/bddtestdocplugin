@@ -21,11 +21,10 @@ public class DocumentGeneratorTest extends TestCase {
   private static final String testFilePostfix = "tests.java";
   private static final String testFilePrefix = "junit";
 
-  List<String> messages = new ArrayList<>();
+  private final List<String> messages = new ArrayList<>();
 
   @Test
   public void testStartClassAndEndClassAreCalled() throws IOException {
-    UnitTestDetector unitTestDetector = new UnitTestDetector();
     Path rootPath = writeTestToFile();
     String outputPath = rootPath.toString() + File.separator + "test-output-file";
 
@@ -36,7 +35,7 @@ public class DocumentGeneratorTest extends TestCase {
 
     gen.addGenerator(new Foo());
 
-    builder.getSources().forEach(src -> checkClasses(gen, prettifier, unitTestDetector, src));
+    builder.getSources().forEach(src -> checkClasses(gen, prettifier, new UnitTestDetector(), src));
 
     assertTrue(messages.contains("startClass(FooTests)"));
     assertTrue(messages.contains("startClass(FooTests)"));

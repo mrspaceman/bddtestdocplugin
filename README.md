@@ -68,3 +68,12 @@ To run ArcTestDox:
 [comment]: <> (  MarketplaceWidget.setupMarketplaceWidget&#40;'card', 17953, "#yourelement"&#41;;)
 
 [comment]: <> (</script>)
+
+
+
+## Check [OWASP](https://www.owasp.org) vulnerabilities
+
+([Instructions from gradle plugins page](https://plugins.gradle.org/plugin/org.owasp.dependencycheck))
+
+1. run `./gradlew clean org.owasp:dependency-check-maven:check`
+2. 

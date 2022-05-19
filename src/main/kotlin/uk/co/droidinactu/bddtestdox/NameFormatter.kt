@@ -1,65 +1,69 @@
-package uk.co.droidinactu.bddtestdox;
+package uk.co.droidinactu.bddtestdox
+
+import java.util.*
 
 /**
  * reformats the name of a test method to be more readable.
  *
- * <p><a href="http://agiledox.sourceforge.net/">Adapted from Chris Stevenson's AgileDox
- * project.</a>
+ *
+ * [Adapted from Chris Stevenson's AgileDox
+ * project.](http://agiledox.sourceforge.net/)
  */
-public class NameFormatter {
-
-  /** test method name prefix */
-  public static final String TEST_PREFIX = "test";
-
-  /** alternative test method name prefix */
-  public static final String TEST_PREFIX_ALTERNATIVE = "should";
-
-  private String suffix = "Test";
-  private String prefix = "Test";
-
-  public String prettifyTestClass(String className) {
-    String title = className;
-    if (suffix != null && title.endsWith(suffix)) {
-      title = title.substring(0, title.lastIndexOf(suffix));
+class NameFormatter {
+    private var suffix: String? = "Test"
+    private var prefix: String? = "Test"
+    fun prettifyTestClass(className: String): String {
+        var title = className
+        if (suffix != null && title.endsWith(suffix!!)) {
+            title = title.substring(0, title.lastIndexOf(suffix!!))
+        }
+        if (prefix != null && title.startsWith(prefix!!)) {
+            title = title.substring(prefix!!.length)
+        }
+        return title
     }
-    if (prefix != null && title.startsWith(prefix)) {
-      title = title.substring(prefix.length());
+
+    fun setTestSuffix(suffix: String?) {
+        this.suffix = suffix
     }
-    return title;
-  }
 
-  public void setTestSuffix(String suffix) {
-    this.suffix = suffix;
-  }
-
-  public void setSuffix(String suffix) {
-    this.suffix = suffix;
-  }
-
-  public void setPrefix(String prefix) {
-    this.prefix = prefix;
-  }
-
-  public String prettifyTestMethod(String testName) {
-    String tn2 = testName;
-    if (testName.startsWith(TEST_PREFIX)) {
-      tn2 = testName.trim().substring(TEST_PREFIX.length());
-    } else if (testName.startsWith(TEST_PREFIX_ALTERNATIVE)) {
-      tn2 = testName.trim().substring(TEST_PREFIX_ALTERNATIVE.length());
+    fun setSuffix(suffix: String?) {
+        this.suffix = suffix
     }
-    String[] words = tn2.replace("test", "").split("(?<!^)(?=[A-Z])");
-    StringBuilder ftn = new StringBuilder();
-    for (String wrd : words) {
-      ftn.append(wrd.toLowerCase()).append(" ");
+
+    fun setPrefix(prefix: String?) {
+        this.prefix = prefix
     }
-    return ftn.toString().trim();
-  }
 
-  public String prettifyScenarioName(String scenarioName) {
-    return scenarioName.trim().substring("Scenario:".length()).trim();
-  }
+    fun prettifyTestMethod(testName: String): String {
+        var tn2 = testName
+        if (testName.startsWith(TEST_PREFIX)) {
+            tn2 = testName.trim { it <= ' ' }.substring(TEST_PREFIX.length)
+        } else if (testName.startsWith(TEST_PREFIX_ALTERNATIVE)) {
+            tn2 = testName.trim { it <= ' ' }.substring(TEST_PREFIX_ALTERNATIVE.length)
+        }
+        val words =
+            tn2.replace("test", "").split("(?<!^)(?=[A-Z])".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val ftn = StringBuilder()
+        for (wrd in words) {
+            ftn.append(wrd.lowercase(Locale.getDefault())).append(" ")
+        }
+        return ftn.toString().trim { it <= ' ' }
+    }
 
-  public String prettifyFeatureName(String featureName) {
-    return featureName; // .trim().substring("Feature:".length()).trim();
-  }
+    fun prettifyScenarioName(scenarioName: String): String {
+        return scenarioName.trim { it <= ' ' }.substring("Scenario:".length).trim { it <= ' ' }
+    }
+
+    fun prettifyFeatureName(featureName: String): String {
+        return featureName // .trim().substring("Feature:".length()).trim();
+    }
+
+    companion object {
+        /** test method name prefix  */
+        const val TEST_PREFIX = "test"
+
+        /** alternative test method name prefix  */
+        const val TEST_PREFIX_ALTERNATIVE = "should"
+    }
 }

@@ -1,42 +1,52 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.2.1'
+    id 'org.jetbrains.intellij' version '1.5.2'
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+    id "org.owasp.dependencycheck" version "7.1.0.1"
 }
 
 group 'uk.co.droidinactu'
-version '3.0.1-SNAPSHOT'
+version '4.0.4-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11)) // intellij runtime only supports Java 11 (or below)
+    }
+}
 
 dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.11.0'
 
     // https://mvnrepository.com/artifact/com.thoughtworks.qdox/qdox
-    implementation 'com.thoughtworks.qdox:qdox:2.0.0'
+    implementation 'com.thoughtworks.qdox:qdox:2.0.1'
 
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
-    testImplementation 'org.mockito:mockito-core:4.0.0'
-
-
+    testImplementation 'org.mockito:mockito-core:4.5.1'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version = '2021.2.3'
+    updateSinceUntilBuild = false
 }
 
 patchPluginXml {
     changeNotes = """
+<p>[4.0.0-SNAPSHOT]</p>
+<ul>
+    <li>Fixed intellij version compatibiliy.</li>
+</ul>
 <p>[3.0.0-SNAPSHOT]</p>
 <ul>
     <li>Added support for extracting features and scenarios from Gherkin files.</li>
@@ -71,7 +81,7 @@ patchPluginXml {
 }
 
 publishPlugin {
-    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+    token = System.getenv("PUBLISH_TOKEN")
     channels = ['canary', 'beta', 'stable']
 }
 
@@ -80,5 +90,5 @@ test {
 }
 
 runIde {
-    jvmArgs '-Xmx2G'
+    jvmArgs '-Xmx25G'
 }
