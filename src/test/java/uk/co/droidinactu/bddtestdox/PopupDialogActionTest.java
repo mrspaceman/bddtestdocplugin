@@ -5,9 +5,10 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class PopupDialogActionTest {
 
   private final DocumentGeneratorTest documentGeneratorTest = new DocumentGeneratorTest();
@@ -30,8 +32,6 @@ class PopupDialogActionTest {
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.initMocks(this);
-
     myState = new ProjectSettingsState();
     myState.outputToMarkdown = true;
     myState.outputToHtml = true;

@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
- * Output's the test results to an html file.
+ * Output's the test results to a html file.
  *
  * <p><a href="http://agiledox.sourceforge.net/">Adapted from Chris Stevenson's AgileDox
  * project.</a>

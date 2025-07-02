@@ -15,7 +15,7 @@ class NameFormatter {
     fun prettifyTestClass(className: String): String {
         var title = className
         if (suffix != null && title.endsWith(suffix!!)) {
-            title = title.substring(0, title.lastIndexOf(suffix!!))
+            title = title.take(title.lastIndexOf(suffix!!))
         }
         if (prefix != null && title.startsWith(prefix!!)) {
             title = title.substring(prefix!!.length)

@@ -2,7 +2,6 @@ package uk.co.droidinactu.bddtestdox;
 
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaSource;
-import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
@@ -12,11 +11,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * <a href="http://agiledox.sourceforge.net/">Adapted from Chris Stevenson's AgileDox project.</a>
  */
-public class DocumentGeneratorTest extends TestCase {
+public class DocumentGeneratorTest {
 
   private static final String testFilePostfix = "tests.java";
   private static final String testFilePrefix = "junit";
@@ -35,7 +36,7 @@ public class DocumentGeneratorTest extends TestCase {
 
     gen.addGenerator(new Foo());
 
-    builder.getSources().forEach(src -> checkClasses(gen, prettifier, new UnitTestDetector(), src));
+    builder.getSources().forEach(src -> checkClasses(gen, prettifier, src));
 
     assertTrue(messages.contains("startClass(FooTests)"));
     assertTrue(messages.contains("startClass(FooTests)"));
@@ -49,7 +50,6 @@ public class DocumentGeneratorTest extends TestCase {
   private void checkClasses(
       DocumentGenerator gen,
       NameFormatter prettifier,
-      UnitTestDetector unitTestDetector,
       JavaSource src) {
     src.getClasses()
         .forEach(
@@ -59,7 +59,7 @@ public class DocumentGeneratorTest extends TestCase {
               gen.startClass(prettyName);
               classObj
                   .getMethods()
-                  .forEach(mthd -> gen.onTest(prettifier.prettifyTestMethod(mthd.getName())));
+                  .forEach(method -> gen.onTest(prettifier.prettifyTestMethod(method.getName())));
               gen.endClass(prettyName);
             });
   }
@@ -91,7 +91,6 @@ public class DocumentGeneratorTest extends TestCase {
      *
      * @param name the name of the project
      */
-    @Override
     public void startProject(String name) {
       messages.add("startProject(" + name + ")");
     }
@@ -104,7 +103,6 @@ public class DocumentGeneratorTest extends TestCase {
       messages.add("endClass(" + name + ")");
     }
 
-    @Override
     public void startFeature(String name) {
       messages.add("startFeature(" + name + ")");
     }
